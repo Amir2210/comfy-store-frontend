@@ -2,7 +2,8 @@ import { MdSunny } from "react-icons/md"
 import { FaMoon, FaShoppingCart } from "react-icons/fa"
 
 import { useEffect, useState } from 'react'
-import { Link, NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom"
+import { NavLinks } from './NavLinks'
 
 
 const themes = {
@@ -35,19 +36,13 @@ export function Navbar() {
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
             </div>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-              <li><NavLink to={`/`}>home</NavLink></li>
-              <li><NavLink to={`/about`}>about</NavLink></li>
-              <li><NavLink to={`/products`}>products</NavLink></li>
-              <li><NavLink to={`/cart`}>cart</NavLink></li>
+              <NavLinks />
             </ul>
           </div>
         </div>
         <div className='navbar-center hidden lg:flex '>
           <ul className='menu menu-horizontal '>
-            <li><NavLink className='capitalize ml-2' to={`/`}>home</NavLink></li>
-            <li><NavLink className='capitalize ml-2' to={`/about`}>about</NavLink></li>
-            <li><NavLink className='capitalize ml-2' to={`/products`}>products</NavLink></li>
-            <li><NavLink className='capitalize ml-2' to={`/cart`}>cart</NavLink></li>
+            <NavLinks />
           </ul>
         </div>
         <div className='navbar-end'>
