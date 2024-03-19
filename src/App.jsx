@@ -1,7 +1,13 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HomeIndex } from './pages/HomeIndex'
 function App() {
 
   return (
-    <h1 className='text-red-400'>start</h1>
+    <Router>
+      <Routes>
+        <Route path='/' element={<HomeIndex />} />
+      </Routes>
+    </Router>
   )
 }
 
