@@ -7,19 +7,19 @@ export function Navbar() {
           <Link>C</Link>
         </div>
         <div>
-          <Link>home</Link>
-          <Link>about</Link>
-          <Link>products</Link>
-          <Link>cart</Link>
+          <Link to={`/`}>home</Link>
+          <Link to={`/about`}>about</Link>
+          <Link to={`/products`}>products</Link>
+          <Link to={`/cart`}>cart</Link>
         </div>
         <div>
           <button>darkMode</button>
-          <Link>cart</Link>
+          <Link to={`/cart`}>cart</Link>
         </div>
       </div>
       <div className='text-white text-center'>
-        <Link>log in</Link>
-        <Link>create account</Link>
+        <Link to={`/login`}>log in</Link>
+        <Link to={`/createUser`}>create account</Link>
       </div>
     </nav>
   )
