@@ -1,5 +1,9 @@
+import { Navbar } from '../cmps/Navbar';
+
 export function HomeIndex() {
   return (
-    <h1>im home page</h1>
+    <>
+      <Navbar />
+    </>
   )
 }
