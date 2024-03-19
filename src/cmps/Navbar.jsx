@@ -46,7 +46,6 @@ export function Navbar() {
           </ul>
         </div>
         <div className='navbar-end'>
-          {/* <button>darkMode</button> */}
           <label className='swap swap-rotate'>
             <input type="checkbox" onChange={handleTheme} />
             <MdSunny className='swap-on h-6 w-6 ' />
@@ -61,8 +60,8 @@ export function Navbar() {
         </div>
       </div>
       <div className=' text-center'>
-        <NavLink to={`/login`}>log in</NavLink>
-        <NavLink to={`/createUser`}>create account</NavLink>
+        <NavLink className='btn btn-ghost' to={`/login`}>log in</NavLink>
+        <NavLink className='btn btn-ghost' to={`/createUser`}>create account</NavLink>
       </div>
     </nav>
   )
