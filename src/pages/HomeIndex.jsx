@@ -1,10 +1,11 @@
-import { Navbar } from '../cmps/Navbar';
+import { Navbar } from '../cmps/Navbar'
+import { HomeHero } from '../cmps/HomeHero'
 
 export function HomeIndex() {
   return (
     <main>
       <Navbar />
-      <h1>home page</h1>
+      <HomeHero />
     </main>
   )
 }
