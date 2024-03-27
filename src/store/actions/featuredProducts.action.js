@@ -1,3 +1,4 @@
+import { featuredProductsService } from '../../services/featuredProducts.service'
 import { store } from '../store'
 import { SET_IS_LOADING, SET_FEATURED_PRODUCTS } from '../reducers/featuredProducts.reducer'
 
@@ -5,7 +6,7 @@ export async function loadFeaturedProducts() {
   store.dispatch({ type: SET_IS_LOADING, isLoading: true })
   try {
     try {
-      const featuredProducts = await itemService.query(filterBy)
+      const featuredProducts = await featuredProductsService.query(filterBy)
       store.dispatch({ type: SET_FEATURED_PRODUCTS, featuredProducts })
     } catch (err) {
       console.log('item action -> Cannot load featuredProducts', err)

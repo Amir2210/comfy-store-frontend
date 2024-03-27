@@ -1,6 +1,6 @@
 import { httpService } from './http.service.js'
 
-export const featuredProducts = {
+export const featuredProductsService = {
   query
 }
 
