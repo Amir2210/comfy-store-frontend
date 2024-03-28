@@ -6,7 +6,7 @@ export async function loadFeaturedProducts() {
   store.dispatch({ type: SET_IS_LOADING, isLoading: true })
   try {
     try {
-      const featuredProducts = await featuredProductsService.query(filterBy)
+      const featuredProducts = await featuredProductsService.query()
       store.dispatch({ type: SET_FEATURED_PRODUCTS, featuredProducts })
     } catch (err) {
       console.log('item action -> Cannot load featuredProducts', err)
