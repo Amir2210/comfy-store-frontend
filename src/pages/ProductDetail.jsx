@@ -8,6 +8,7 @@ import { featuredProductsService } from '../services/featuredProducts.service'
 export function ProductDetail() {
   const navigate = useNavigate()
   const [product, setProduct] = useState(null)
+  const [color, setColor] = useState(null)
   const { productId } = useParams()
 
   useEffect(() => {
@@ -19,6 +20,7 @@ export function ProductDetail() {
     try {
       const product = await featuredProductsService.getById(productId)
       setProduct(product)
+      setColor(product.attributes.colors[0])
     } catch (error) {
       console.log(error)
       navigate('/')
@@ -42,7 +44,7 @@ export function ProductDetail() {
             <p className='my-8'>{product.attributes.description}</p>
             <h3 className='capitalize text-xl my-2'>colors</h3>
             <div className='flex'>
-              {product.attributes.colors.map(color => <button type='button' className='badge w-6 h-6 mr-2' key={color} style={{ backgroundColor: `${color}` }}></button>)}
+              {product.attributes.colors.map(productColor => <button onClick={() => setColor(productColor)} type='button' className={`badge w-6 h-6 mr-2 ${productColor === color && 'border-2 border-secondary'}`} key={productColor} style={{ backgroundColor: `${productColor}` }}></button>)}
             </div>
             <h3 className='capitalize text-xl my-4'>amount</h3>
             <select className="select select-secondary w-full max-w-xs" defaultChecked={1}>
