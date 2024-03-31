@@ -1,9 +1,14 @@
 import { httpService } from './http.service.js'
 
 export const featuredProductsService = {
-  query
+  query,
+  getById
 }
 
 function query() {
-  return httpService.get('featuredProducts')
+  return httpService.get('featuredProduct')
+}
+
+function getById(productId) {
+  return httpService.get(`featuredProduct/${productId}`)
 }
