@@ -30,7 +30,7 @@ export function Navbar() {
     <nav className='bg-base-200 '>
       <div className='navbar align-elemets '>
         <div className='navbar-start'>
-          <NavLink className='hidden lg:flex text-4xl text-slate-900 font-mono font-bold w-14 h-14 btn btn-primary  justify-center items-center rounded-lg duration-300'>C</NavLink>
+          <NavLink to={'/'} className='hidden lg:flex text-4xl text-slate-900 font-mono font-bold w-14 h-14 btn btn-primary  justify-center items-center rounded-lg duration-300'>C</NavLink>
           <div className="dropdown lg:hidden">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-link">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
