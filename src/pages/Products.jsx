@@ -4,7 +4,8 @@ import { loadProducts } from '../store/actions/products.action'
 import { useEffect } from 'react'
 export function Products() {
   const products = useSelector((storeState) => storeState.productsModule.products)
-  console.log(products)
+  const isLoading = useSelector((storeState) => storeState.productsModule.isLoading)
+  console.log(isLoading)
   useEffect(() => {
     loadProducts()
       .catch((err) => {
@@ -14,7 +15,11 @@ export function Products() {
   return (
     <>
       <Navbar />
-      <h1>im am products</h1>
+      <section className='align-elemets mt-6'>
+        <div className='flex'>
+          <div>{products.length} products</div>
+        </div>
+      </section>
     </>
   )
 }
