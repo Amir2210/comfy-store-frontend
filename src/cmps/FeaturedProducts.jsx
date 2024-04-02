@@ -4,7 +4,6 @@ import { useEffect } from 'react'
 import { FeaturedProductsPreview } from './FeaturedProductsPreview'
 export function FeaturedProducts() {
   const featuredProducts = useSelector((storeState) => storeState.featuredProductsModule.featuredProducts)
-  console.log('featuredProducts:', featuredProducts)
 
   useEffect(() => {
     loadFeaturedProducts()

@@ -1,9 +1,11 @@
 import { combineReducers, createStore } from 'redux'
 
 import { featuredProductsReducer } from './reducers/featuredProducts.reducer'
+import { productsReducer } from './reducers/products.reducer'
 
 const rootReducer = combineReducers({
   featuredProductsModule: featuredProductsReducer,
+  productsModule: productsReducer
 })
 
 
