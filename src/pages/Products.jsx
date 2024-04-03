@@ -33,7 +33,6 @@ export function Products() {
   }, [filterBy, sort])
 
   function onSetFilter(filterBy) {
-    console.log('filterBy:', filterBy)
     setFilterBy(filterBy)
   }
 

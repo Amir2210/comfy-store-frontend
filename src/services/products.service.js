@@ -19,6 +19,8 @@ function getById(productId) {
 function getDefaultFilterBy() {
   return {
     txt: '',
+    category: '',
+    company: '',
     maxPrice: Infinity,
   }
 }
