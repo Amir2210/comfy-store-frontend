@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { FaArrowRightLong } from "react-icons/fa6"
 import { useEffect, useState } from 'react'
 import { featuredProductsService } from '../services/featuredProducts.service'
+import { productsService } from '../services/products.service'
 
 export function ProductDetail() {
   const navigate = useNavigate()
@@ -18,9 +19,9 @@ export function ProductDetail() {
 
   async function loadProduct() {
     try {
-      const product = await featuredProductsService.getById(productId)
+      const product = await featuredProductsService.getById(productId) || await productsService.getById(productId)
       setProduct(product)
-      setColor(product.attributes.colors[0])
+      setColor(product.colors[0])
     } catch (error) {
       console.log(error)
       navigate('/')
@@ -37,14 +38,14 @@ export function ProductDetail() {
           <Link to={`/products`} className='ml-4 font-medium capitalize underline hover:text-secondary duration-150'>products</Link>
         </div>
         <section className='grid gap-y-10 lg:grid-cols-2 lg:gap-x-10 mt-10'>
-          <img className='w-80 h-80 object-cover rounded-lg lg:w-full' src={product.attributes.image} alt="" />
+          <img className='w-80 h-80 object-cover rounded-lg lg:w-full' src={product.image} alt="" />
           <div>
-            <h1 className='capitalize text-3xl font-medium'>{product.attributes.title}</h1>
-            <h2 className='capitalize text-xl mt-2'>company: {product.attributes.company}</h2>
-            <p className='my-8'>{product.attributes.description}</p>
+            <h1 className='capitalize text-3xl font-medium'>{product.title}</h1>
+            <h2 className='capitalize text-xl mt-2'>company: {product.company}</h2>
+            <p className='my-8'>{product.description}</p>
             <h3 className='capitalize text-xl my-2'>colors</h3>
             <div className='flex'>
-              {product.attributes.colors.map(productColor => <button onClick={() => setColor(productColor)} type='button' className={`badge w-6 h-6 mr-2 ${productColor === color && 'border-2 border-secondary'}`} key={productColor} style={{ backgroundColor: `${productColor}` }}></button>)}
+              {product.colors.map(productColor => <button onClick={() => setColor(productColor)} type='button' className={`badge w-6 h-6 mr-2 ${productColor === color && 'border-2 border-secondary'}`} key={productColor} style={{ backgroundColor: `${productColor}` }}></button>)}
             </div>
             <h3 className='capitalize text-xl my-4'>amount</h3>
             <select className="select select-secondary w-full max-w-xs" defaultChecked={1}>
