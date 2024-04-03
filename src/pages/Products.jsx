@@ -1,29 +1,51 @@
+//SERVICE
+import { productsService } from '../services/products.service'
+
 import { useSelector } from 'react-redux'
 import { Navbar } from '../cmps/Navbar'
-import { loadProducts } from '../store/actions/products.action'
+import { loadProducts, setFilterBy } from '../store/actions/products.action'
 import { useEffect, useState } from 'react'
 
 //ICONS
 import { IoGrid } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { ProductPreview } from '../cmps/productPreview';
+import { FilterProduct } from '../cmps/FilterProduct';
 
 
 export function Products() {
   const products = useSelector((storeState) => storeState.productsModule.products)
-  console.log(products)
   const isLoading = useSelector((storeState) => storeState.productsModule.isLoading)
   const [layout, setLayout] = useState('grid')
+  const filterBy = useSelector((storeState) => storeState.productsModule.filterBy)
+  const [sort, setSort] = useState(productsService.getDefaultSort())
+
+  console.log(products)
+
+
+
 
   useEffect(() => {
-    loadProducts()
+    loadProducts(filterBy, sort)
       .catch((err) => {
         console.log('err', err)
       })
-  }, [])
+  }, [filterBy, sort])
+
+  function onSetFilter(filterBy) {
+    console.log('filterBy:', filterBy)
+    setFilterBy(filterBy)
+  }
+
+  function onSetSort(sort) {
+    setSort(sort)
+  }
+
+
   return (
     <>
       <Navbar />
+      <FilterProduct filterBy={filterBy} onSetFilter={onSetFilter} sort={sort} onSetSort={onSetSort} />
       <section className='align-elemets mt-6'>
         <div className='flex justify-between'>
           <h2 className='text-xl font-medium'>{!isLoading && products.length} {products.length <= 1 ? 'product' : 'products'}</h2>

@@ -2,13 +2,30 @@ import { httpService } from './http.service.js'
 
 export const productsService = {
   query,
-  getById
+  getById,
+  getDefaultFilterBy,
+  getDefaultSort,
 }
 
-function query() {
-  return httpService.get('product')
+function query(filterBy, sort) {
+  return httpService.get('product', { params: { filterBy, sort } })
 }
 
 function getById(productId) {
   return httpService.get(`product/${productId}`)
+}
+
+
+function getDefaultFilterBy() {
+  return {
+    txt: '',
+    maxPrice: Infinity,
+  }
+}
+
+function getDefaultSort() {
+  return {
+    by: 'name',
+    asc: true
+  }
 }
