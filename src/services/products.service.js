@@ -21,7 +21,8 @@ function getDefaultFilterBy() {
     txt: '',
     category: '',
     company: '',
-    maxPrice: Infinity,
+    maxPrice: 10000,
+    freeShipping: ''
   }
 }
 
