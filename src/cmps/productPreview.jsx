@@ -6,7 +6,7 @@ export function ProductPreview({ product, layout }) {
       <Link to={`/product/${product._id}`} className='p-7 shadow-2xl rounded-lg text-center cursor-pointer hover:scale-105 duration-300'>
         <img className='w-full h-56 object-cover rounded-lg' src={product.image} alt="" />
         <h1 className='mt-4 capitalize text-2xl tracking-wider font-medium'>{product.title}</h1>
-        <p className='mt-2 tracking-wider text-secondary'>$ {parseFloat(product.price) / 100}</p>
+        <p className='mt-2 tracking-wider text-secondary'>$ {(parseFloat(product.price).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
       </Link>
     )
   return (
@@ -16,7 +16,7 @@ export function ProductPreview({ product, layout }) {
         <h1 className='mt-4 sm:mt-0 capitalize text-2xl tracking-wider font-medium'>{product.title}</h1>
         <h2 className='mt-4  capitalize text-xl tracking-wider font-medium'>{product.company}</h2>
       </div>
-      <p className='ml-auto tracking-wider text-secondary'>$ {parseFloat(product.price) / 100}</p>
+      <p className='ml-auto tracking-wider text-secondary'>$ {(parseFloat(product.price).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
     </Link>
   )
 }

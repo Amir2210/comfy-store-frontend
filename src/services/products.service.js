@@ -7,8 +7,8 @@ export const productsService = {
   getDefaultSort,
 }
 
-function query(filterBy, sort) {
-  return httpService.get('product', { params: { filterBy, sort } })
+function query(filterBy, sortBy) {
+  return httpService.get('product', { params: { filterBy, sortBy } })
 }
 
 function getById(productId) {
@@ -27,7 +27,6 @@ function getDefaultFilterBy() {
 
 function getDefaultSort() {
   return {
-    by: 'name',
-    asc: true
+    by: '',
   }
 }
