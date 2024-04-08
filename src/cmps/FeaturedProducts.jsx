@@ -2,7 +2,10 @@ import { useSelector } from 'react-redux'
 import { loadFeaturedProducts } from '../store/actions/featuredProducts.action'
 import { useEffect } from 'react'
 import { FeaturedProductsPreview } from './FeaturedProductsPreview'
+
+// LOADER
 import { RotatingTriangles } from 'react-loader-spinner'
+
 export function FeaturedProducts() {
   const featuredProducts = useSelector((storeState) => storeState.featuredProductsModule.featuredProducts)
   const isLoading = useSelector((storeState) => storeState.featuredProductsModule.isLoading)

@@ -9,9 +9,15 @@ import { useEffect, useState } from 'react'
 //ICONS
 import { IoGrid } from "react-icons/io5"
 import { RxHamburgerMenu } from "react-icons/rx"
+
+//CMP
 import { ProductPreview } from '../cmps/productPreview'
 import { FilterProduct } from '../cmps/FilterProduct'
 import { Pagination } from '../cmps/Pagination'
+
+// LOADER
+import { RotatingTriangles } from 'react-loader-spinner'
+
 
 
 export function Products() {
@@ -56,7 +62,16 @@ export function Products() {
         </div>
         <div className='w-full h-1 bg-secondary mt-4'></div>
         <div className={` ${layout === 'grid' && 'grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5 lg:gap-10'} mt-4`}>
-          {products.map(product => <ProductPreview key={product._id} product={product} layout={layout} />)}
+          {!isLoading && products.map(product => <ProductPreview key={product._id} product={product} layout={layout} />)}
+          {isLoading && <RotatingTriangles
+            visible={true}
+            height="80"
+            width="80"
+            color="#4fa94d"
+            ariaLabel="rotating-triangles-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />}
         </div>
       </section>
       <Pagination filterBy={filterBy} onSetFilter={onSetFilter} totalItems={totalItems} />

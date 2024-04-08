@@ -5,7 +5,6 @@ export function Pagination({ filterBy, onSetFilter, totalItems }) {
   const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
   const pageSize = 10
   const numOfButtons = Math.ceil(totalItems / pageSize)
-  console.log('numOfButtons:', numOfButtons)
   function handlePageChange(page) {
     const newPagination = {
       ...filterBy,
