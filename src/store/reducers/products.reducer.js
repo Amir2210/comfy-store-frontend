@@ -18,7 +18,8 @@ export function productsReducer(state = initialState, action) {
   switch (action.type) {
     case SET_PRODUCTS:
       return { ...state, products: action.products, }
-      break
+    case SET_IS_LOADING:
+      return { ...state, isLoading: action.isLoading }
     case SET_FILTER_BY:
       return { ...state, filterBy: { ...state.filterBy, ...action.filterBy } }
     case SET_SORT_BY:
