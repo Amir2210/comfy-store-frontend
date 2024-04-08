@@ -22,7 +22,8 @@ function getDefaultFilterBy() {
     category: '',
     company: '',
     maxPrice: 10000,
-    freeShipping: ''
+    freeShipping: '',
+    pageIdx: 0
   }
 }
 
@@ -31,3 +32,4 @@ function getDefaultSort() {
     by: '',
   }
 }
+

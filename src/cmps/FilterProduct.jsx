@@ -34,7 +34,8 @@ export function FilterProduct({ filterBy, onSetFilter, sortBy, onSetSort }) {
       category: '',
       company: '',
       maxPrice: 10000,
-      freeShipping: false
+      freeShipping: false,
+      pageIdx: 0
     }))
     setSortByToEdit(prevSort => ({
       ...prevSort,

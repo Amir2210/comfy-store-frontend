@@ -7,21 +7,20 @@ import { loadProducts, setFilterBy, setSortBy } from '../store/actions/products.
 import { useEffect, useState } from 'react'
 
 //ICONS
-import { IoGrid } from "react-icons/io5";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { ProductPreview } from '../cmps/productPreview';
-import { FilterProduct } from '../cmps/FilterProduct';
+import { IoGrid } from "react-icons/io5"
+import { RxHamburgerMenu } from "react-icons/rx"
+import { ProductPreview } from '../cmps/productPreview'
+import { FilterProduct } from '../cmps/FilterProduct'
+import { Pagination } from '../cmps/Pagination'
 
 
 export function Products() {
   const products = useSelector((storeState) => storeState.productsModule.products)
+  const totalItems = useSelector((storeState) => storeState.productsModule.totalItems)
   const isLoading = useSelector((storeState) => storeState.productsModule.isLoading)
   const [layout, setLayout] = useState('grid')
   const filterBy = useSelector((storeState) => storeState.productsModule.filterBy)
   const sortBy = useSelector((storeState) => storeState.productsModule.sortBy)
-  console.log('sortBy:', sortBy)
-  // const [sort, setSort] = useState(productsService.getDefaultSort())
-  // console.log(products)
 
 
 
@@ -38,9 +37,9 @@ export function Products() {
   }
 
   function onSetSort(sortBy) {
-    console.log('sorttt', sortBy)
     setSortBy(sortBy)
   }
+
 
 
   return (
@@ -49,7 +48,7 @@ export function Products() {
       <FilterProduct filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
       <section className='align-elemets mt-6'>
         <div className='flex justify-between'>
-          <h2 className='text-xl font-medium'>{!isLoading && products.length} {products.length <= 1 ? 'product' : 'products'}</h2>
+          <h2 className='text-xl font-medium'>{!isLoading && totalItems} {totalItems <= 1 ? 'product' : 'products'}</h2>
           <div className='hidden sm:block'>
             <button onClick={() => setLayout('grid')} className={`text-xl btn btn-circle btn-sm mr-2 ${layout === 'grid' && 'btn-primary'}`}><IoGrid /></button>
             <button onClick={() => setLayout('list')} className={`text-xl btn btn-circle btn-sm ${layout === 'list' && 'btn-primary'}`}><RxHamburgerMenu /></button>
@@ -60,6 +59,7 @@ export function Products() {
           {products.map(product => <ProductPreview key={product._id} product={product} layout={layout} />)}
         </div>
       </section>
+      <Pagination filterBy={filterBy} onSetFilter={onSetFilter} totalItems={totalItems} />
     </>
   )
 }
