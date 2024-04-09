@@ -2,13 +2,13 @@
 import { httpService } from './http.service.js'
 
 const BASE_URL = 'auth/'
-const STORAGE_KEY_LOGGEDIN = 'loggedinUser'
+const STORAGE_KEY_LOGGEDIN = 'loggedInUser'
 
 export const userService = {
     login,
     logout,
     signup,
-    getLoggedinUser,
+    getloggedInUser,
     getUsers,
     getById,
 }
@@ -26,13 +26,13 @@ async function getById(userId) {
 
 async function login({ username, password }) {
     const user = await httpService.post(BASE_URL + 'login', { username, password })
-    if (user) return _setLoggedinUser(user)
+    if (user) return _setloggedInUser(user)
 }
 
 async function signup({ username, password, fullname }) {
-    const user = { username, password, fullname, score: 10000 }
+    const user = { username, password, fullname, }
     const savedUser = httpService.post(BASE_URL + 'signup', user)
-    if (savedUser) return _setLoggedinUser(savedUser)
+    if (savedUser) return _setloggedInUser(savedUser)
 }
 
 async function logout() {
@@ -40,12 +40,12 @@ async function logout() {
     sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN)
 }
 
-function _setLoggedinUser(user) {
+function _setloggedInUser(user) {
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
     return user
 }
 
-function getLoggedinUser() {
+function getloggedInUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN))
 }
 
