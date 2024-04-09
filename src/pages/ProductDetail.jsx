@@ -5,8 +5,10 @@ import { FaArrowRightLong } from "react-icons/fa6"
 import { useEffect, useState } from 'react'
 import { featuredProductsService } from '../services/featuredProducts.service'
 import { productsService } from '../services/products.service'
+import { useSelector } from 'react-redux'
 
 export function ProductDetail() {
+  const user = useSelector((storeState) => storeState.userModule.loggedInUser)
   const navigate = useNavigate()
   const [product, setProduct] = useState(null)
   const [color, setColor] = useState(null)
@@ -30,7 +32,7 @@ export function ProductDetail() {
   if (!product) return <div>Loading</div>
   return (
     <>
-      <Navbar />
+      <Navbar user={user} />
       <div className='align-elemets py-8'>
         <div className='flex items-center'>
           <Link to={`/`} className='mr-4 font-medium capitalize underline hover:text-secondary duration-150'>home</Link>

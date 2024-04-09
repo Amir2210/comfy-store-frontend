@@ -1,9 +1,11 @@
+import { useSelector } from 'react-redux';
 import { Navbar } from '../cmps/Navbar';
 
 export function About() {
+  const user = useSelector((storeState) => storeState.userModule.loggedInUser)
   return (
     <>
-      <Navbar />
+      <Navbar user={user} />
       <section className='align-elemets text-center'>
         <div>
           <h1 className='capitalize mt-10 text-3xl sm:text-5xl'>we love <span className='bg-primary px-3 py-3 rounded-xl'>comfy</span></h1>

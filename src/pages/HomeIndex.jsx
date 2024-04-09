@@ -5,10 +5,10 @@ import { useSelector } from 'react-redux'
 
 export function HomeIndex() {
   const user = useSelector((storeState) => storeState.userModule.loggedInUser)
-  console.log('user:', user)
+  console.log('user home:', user)
   return (
     <main>
-      <Navbar />
+      <Navbar user={user} />
       <HomeHero />
       <FeaturedProducts />
     </main>

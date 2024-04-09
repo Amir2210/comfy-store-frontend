@@ -6,6 +6,8 @@ import { NavLink } from "react-router-dom"
 import { NavLinks } from './NavLinks'
 
 
+import { logout } from '../store/actions/user.actions.js'
+
 const themes = {
   dracula: 'dracula',
   emerald: 'emerald'
@@ -14,7 +16,8 @@ const themes = {
 function getThemeFromLocal() {
   return localStorage.getItem('theme') || themes.dracula
 }
-export function Navbar() {
+export function Navbar({ user }) {
+  console.log('user:', user)
   const [theme, setTheme] = useState(getThemeFromLocal())
   function handleTheme() {
     const { dracula, emerald } = themes
@@ -26,6 +29,15 @@ export function Navbar() {
     document.documentElement.setAttribute('data-theme', theme)
     localStorage.setItem('theme', theme)
   }, [theme])
+
+  async function onLogout() {
+    try {
+      await logout()
+      navigate('/')
+    } catch (err) {
+      console.log('err:', err)
+    }
+  }
   return (
     <nav className='bg-base-200 '>
       <div className='navbar align-elemets '>
@@ -61,8 +73,9 @@ export function Navbar() {
       </div>
       <div className=' text-center'>
         <ul className='menu menu-horizontal'>
-          <li><NavLink className='capitalize ml-2' to={`/login`}>log in</NavLink></li>
-          <li><NavLink className='capitalize ml-2' to={`/createUser`}>create account</NavLink></li>
+          {!user ? <li><NavLink className='capitalize ml-2' to={`/login`}>log in</NavLink></li> :
+            <li><button onClick={onLogout} className='btn btn-accent capitalize ml-2'>log out</button></li>}
+          {!user ? <li><NavLink className='capitalize ml-2' to={`/createUser`}>create account</NavLink></li> : null}
         </ul>
       </div>
     </nav>

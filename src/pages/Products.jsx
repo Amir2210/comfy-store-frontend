@@ -21,6 +21,7 @@ import { RotatingTriangles } from 'react-loader-spinner'
 
 
 export function Products() {
+  const user = useSelector((storeState) => storeState.userModule.loggedInUser)
   const products = useSelector((storeState) => storeState.productsModule.products)
   const totalItems = useSelector((storeState) => storeState.productsModule.totalItems)
   const isLoading = useSelector((storeState) => storeState.productsModule.isLoading)
@@ -50,7 +51,7 @@ export function Products() {
 
   return (
     <>
-      <Navbar />
+      <Navbar user={user} />
       <FilterProduct filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
       <section className='align-elemets mt-6'>
         <div className='flex justify-between'>
