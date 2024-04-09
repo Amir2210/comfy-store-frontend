@@ -7,6 +7,7 @@ import { Cart } from './pages/Cart'
 import { Login } from './pages/Login'
 import { CreateUser } from './pages/CreateUser'
 import { ProductDetail } from './pages/ProductDetail'
+import { ErrorPage } from './pages/ErrorPage'
 //store
 import { store } from './store/store'
 import { Provider } from 'react-redux'
@@ -27,6 +28,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/createUser' element={<CreateUser />} />
           <Route path='/product/:productId' element={<ProductDetail />} />
+          <Route path='*' element={<ErrorPage />} />
         </Routes>
       </Router>
     </Provider>
