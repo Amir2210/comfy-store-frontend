@@ -60,8 +60,10 @@ export function Navbar() {
         </div>
       </div>
       <div className=' text-center'>
-        <NavLink className='btn btn-ghost' to={`/login`}>log in</NavLink>
-        <NavLink className='btn btn-ghost' to={`/createUser`}>create account</NavLink>
+        <ul className='menu menu-horizontal'>
+          <li><NavLink className='capitalize ml-2' to={`/login`}>log in</NavLink></li>
+          <li><NavLink className='capitalize ml-2' to={`/createUser`}>create account</NavLink></li>
+        </ul>
       </div>
     </nav>
   )

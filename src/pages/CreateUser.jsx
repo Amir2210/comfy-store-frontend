@@ -5,7 +5,7 @@ export function CreateUser() {
     <>
       <Navbar />
       <h1>im create user page</h1>
-      <LoginSignup />
+      {/* <LoginSignup /> */}
     </>
   )
 }
