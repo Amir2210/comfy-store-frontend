@@ -1,5 +1,4 @@
-//SERVICE
-import { productsService } from '../services/products.service'
+import { toast } from 'react-toastify'
 
 import { useSelector } from 'react-redux'
 import { Navbar } from '../cmps/Navbar'
@@ -17,10 +16,12 @@ import { Pagination } from '../cmps/Pagination'
 
 // LOADER
 import { RotatingTriangles } from 'react-loader-spinner'
+import { useNavigate } from 'react-router-dom'
 
 
 
 export function Products() {
+  const navigate = useNavigate()
   const user = useSelector((storeState) => storeState.userModule.loggedInUser)
   const products = useSelector((storeState) => storeState.productsModule.products)
   const totalItems = useSelector((storeState) => storeState.productsModule.totalItems)
@@ -35,7 +36,8 @@ export function Products() {
   useEffect(() => {
     loadProducts()
       .catch((err) => {
-        console.log('err', err)
+        toast.error(`failed to load products`)
+        navigate('/')
       })
   }, [filterBy, sortBy])
 

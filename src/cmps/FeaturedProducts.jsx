@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import { loadFeaturedProducts } from '../store/actions/featuredProducts.action'
 import { useEffect } from 'react'
 import { FeaturedProductsPreview } from './FeaturedProductsPreview'
-
+import { toast } from 'react-toastify'
 // LOADER
 import { RotatingTriangles } from 'react-loader-spinner'
 
@@ -12,7 +12,7 @@ export function FeaturedProducts() {
   useEffect(() => {
     loadFeaturedProducts()
       .catch((err) => {
-        console.log('err', err)
+        toast.error(`failed to load Featured Products`)
       })
   }, [])
   return (

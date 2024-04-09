@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { featuredProductsService } from '../services/featuredProducts.service'
 import { productsService } from '../services/products.service'
 import { useSelector } from 'react-redux'
-
+import { toast } from 'react-toastify'
 export function ProductDetail() {
   const user = useSelector((storeState) => storeState.userModule.loggedInUser)
   const navigate = useNavigate()
@@ -25,7 +25,7 @@ export function ProductDetail() {
       setProduct(product)
       setColor(product.colors[0])
     } catch (error) {
-      console.log(error)
+      toast.error(`failed to load product`)
       navigate('/')
     }
   }
