@@ -17,7 +17,6 @@ function getThemeFromLocal() {
   return localStorage.getItem('theme') || themes.dracula
 }
 export function Navbar({ user }) {
-  console.log('user:', user)
   const [theme, setTheme] = useState(getThemeFromLocal())
   function handleTheme() {
     const { dracula, emerald } = themes
@@ -73,7 +72,7 @@ export function Navbar({ user }) {
       </div>
       <div className=' text-center'>
         <ul className='menu menu-horizontal'>
-          {user ? <li><span className='btn btn-secondary btn-outline capitalize ml-2'>hello {user.fullname}</span></li> : null}
+          {user ? <li><span className='btn btn-secondary btn-outline capitalize ml-2'>hello {user.username}</span></li> : null}
           {!user ? <li><NavLink className='capitalize ml-2' to={`/login`}>log in</NavLink></li> :
             <li><button onClick={onLogout} className='btn btn-accent capitalize ml-2'>log out</button></li>}
           {!user ? <li><NavLink className='capitalize ml-2' to={`/createUser`}>create account</NavLink></li> : null}

@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 
 export function HomeIndex() {
   const user = useSelector((storeState) => storeState.userModule.loggedInUser)
-  console.log('user home:', user)
   return (
     <main>
       <Navbar user={user} />

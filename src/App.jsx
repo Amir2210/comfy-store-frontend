@@ -10,10 +10,14 @@ import { ProductDetail } from './pages/ProductDetail'
 //store
 import { store } from './store/store'
 import { Provider } from 'react-redux'
+
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
 function App() {
 
   return (
     <Provider store={store}>
+      <ToastContainer position='top-center' autoClose={2000} />
       <Router>
         <Routes>
           <Route path='/' element={<HomeIndex />} />

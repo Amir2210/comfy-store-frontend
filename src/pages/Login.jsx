@@ -3,6 +3,7 @@ import { Navbar } from '../cmps/Navbar'
 import { useState } from 'react'
 import { login } from '../store/actions/user.actions'
 import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 function getEmptyCredentials() {
   return {
     fullname: '',
@@ -26,9 +27,10 @@ export function Login() {
     ev.preventDefault()
     try {
       await login(credentials)
+      toast.success(`welcome ${credentials.username} 😀`)
       navigate('/')
     } catch (err) {
-      console.log(err)
+      toast.error(`invalid username or password`)
     }
   }
   const { username, password } = credentials
