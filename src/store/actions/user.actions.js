@@ -1,5 +1,5 @@
 import { userService } from "../../services/user.service.js"
-import { SET_USER, } from "../reducers/user.reducer.js"
+import { SET_USER, ADD_TO_CART } from "../reducers/user.reducer.js"
 import { store } from "../store.js"
 
 
@@ -48,3 +48,17 @@ export async function logout() {
     }
 }
 
+
+export async function addToCart(product) {
+    store.dispatch({
+        type: ADD_TO_CART,
+        product
+    })
+    try {
+        const loggedInUser = store.getState().userModule.loggedInUser
+        const updatedCart = [...loggedInUser.cart]
+        await userService.update({ _id: loggedInUser._id, cart: updatedCart })
+    } catch (error) {
+        console.log('error:', error)
+    }
+}

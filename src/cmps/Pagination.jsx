@@ -25,7 +25,7 @@ export function Pagination({ filterBy, onSetFilter, totalItems }) {
   }
 
   return (
-    <div className='align-elemets mt-6 flex justify-end '>
+    <div className='align-elemets my-6 flex justify-end '>
       {renderPaginationButtons()}
     </div>
   )

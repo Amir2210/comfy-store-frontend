@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Navbar } from '../cmps/Navbar'
 import { Link } from "react-router-dom"
 import { FaArrowRightLong } from "react-icons/fa6"
@@ -7,6 +7,8 @@ import { featuredProductsService } from '../services/featuredProducts.service'
 import { productsService } from '../services/products.service'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
+import { addToCart } from '../store/actions/user.actions'
+
 export function ProductDetail() {
   const user = useSelector((storeState) => storeState.userModule.loggedInUser)
   const navigate = useNavigate()
@@ -28,6 +30,10 @@ export function ProductDetail() {
       toast.error(`failed to load product`)
       navigate('/')
     }
+  }
+
+  function onAddToCart() {
+    addToCart(product)
   }
   if (!product) return <div>Loading</div>
   return (
@@ -63,7 +69,7 @@ export function ProductDetail() {
               <option>10</option>
             </select>
             <div className='my-6'>
-              <button className='btn btn-secondary capitalize'>add to bag</button>
+              <button onClick={onAddToCart} className='btn btn-secondary capitalize'>add to bag</button>
             </div>
           </div>
         </section >
