@@ -65,7 +65,7 @@ export function Navbar({ user }) {
           <NavLink className='btn btn-ghost btn-circle btn-md ml-4' to={`/cart`}>
             <div className='indicator'>
               <FaShoppingCart className='h-6 w-6' />
-              <span className='badge badge-sm badge-primary indicator-item'>7</span>
+              <span className='badge badge-sm badge-primary indicator-item'>{user && user.cart && user.cart.length || 0}</span>
             </div>
           </NavLink>
         </div>
