@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom"
 import { Navbar } from '../cmps/Navbar'
 import { useState } from 'react'
 import { signup, login } from '../store/actions/user.actions'
-import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 function getEmptyCredentials() {
   return {
@@ -13,7 +12,6 @@ function getEmptyCredentials() {
 }
 
 export function CreateUser() {
-  const user = useSelector((storeState) => storeState.userModule.loggedInUser)
   const [credentials, setCredentials] = useState(getEmptyCredentials())
   const navigate = useNavigate()
 
@@ -37,7 +35,7 @@ export function CreateUser() {
   const { username, password, fullname } = credentials
   return (
     <>
-      <Navbar user={user} />
+      <Navbar />
       <section className='mx-4 sm:mx-auto mt-10 sm:mt-20 max-w-2xl h-2/4 flex flex-col items-center justify-center p-7 sm:shadow-2xl sm:rounded-lg text-center'>
         <h1 className='capitalize text-5xl font-semibold mb-4'>register</h1>
         <form onSubmit={onSubmit}>

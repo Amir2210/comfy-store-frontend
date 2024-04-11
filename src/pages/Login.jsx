@@ -13,7 +13,6 @@ function getEmptyCredentials() {
 }
 
 export function Login() {
-  const user = useSelector((storeState) => storeState.userModule.loggedInUser)
   const [credentials, setCredentials] = useState(getEmptyCredentials())
   const navigate = useNavigate()
 
@@ -36,7 +35,7 @@ export function Login() {
   const { username, password } = credentials
   return (
     <>
-      <Navbar user={user} />
+      <Navbar />
       <section className='mx-4 sm:mx-auto mt-10 sm:mt-20 max-w-2xl h-2/4 flex flex-col items-center justify-center p-7 sm:shadow-2xl sm:rounded-lg text-center'>
         <h1 className='capitalize text-5xl font-semibold mb-4'>login</h1>
         <form onSubmit={onSubmit}>

@@ -22,7 +22,6 @@ import { useNavigate } from 'react-router-dom'
 
 export function Products() {
   const navigate = useNavigate()
-  const user = useSelector((storeState) => storeState.userModule.loggedInUser)
   const products = useSelector((storeState) => storeState.productsModule.products)
   const totalItems = useSelector((storeState) => storeState.productsModule.totalItems)
   const isLoading = useSelector((storeState) => storeState.productsModule.isLoading)
@@ -53,7 +52,7 @@ export function Products() {
 
   return (
     <>
-      <Navbar user={user} />
+      <Navbar />
       <FilterProduct filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
       <section className='align-elemets mt-6'>
         <div className='flex justify-between'>
