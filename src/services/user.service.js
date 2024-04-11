@@ -42,13 +42,16 @@ async function logout() {
 }
 
 function _setloggedInUser(user) {
+    console.log('user:', user)
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
     return user
 }
 
-async function update({ _id, cart }) {
-    console.log('cart:', cart)
-    const user = await httpService.put(`user/${_id}`, { _id, cart })
+
+async function update(userToUpdate) {
+    const { _id, cart, fullname } = userToUpdate
+    console.log('cart, fullname:', cart, fullname)
+    const user = await httpService.put(`user/${_id}`, { _id, cart, fullname })
     if (getloggedInUser()._id === user._id) saveLocalUser(user)
     return user
 }
@@ -58,8 +61,8 @@ function getloggedInUser() {
 }
 
 function saveLocalUser(user) {
-    user = { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl, score: user.score }
-    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
+    user = { _id: user._id, fullname: user.fullname, cart: user.cart, }
+    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
     return user
 }
 

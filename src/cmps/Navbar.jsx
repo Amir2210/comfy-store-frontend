@@ -2,11 +2,12 @@ import { MdSunny } from "react-icons/md"
 import { FaMoon, FaShoppingCart } from "react-icons/fa"
 
 import { useEffect, useState } from 'react'
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { NavLinks } from './NavLinks'
 
 
-import { logout } from '../store/actions/user.actions.js'
+import { logout, } from '../store/actions/user.actions.js'
+import { useSelector } from 'react-redux'
 
 const themes = {
   dracula: 'dracula',
@@ -16,8 +17,11 @@ const themes = {
 function getThemeFromLocal() {
   return localStorage.getItem('theme') || themes.dracula
 }
-export function Navbar({ user }) {
+export function Navbar() {
   const [theme, setTheme] = useState(getThemeFromLocal())
+  const user = useSelector((storeState) => storeState.userModule.loggedInUser)
+  const navigate = useNavigate()
+  const totalCartProducts = user ? user.cart.reduce((acc, product) => acc + product.amount, 0) : 0
   function handleTheme() {
     const { dracula, emerald } = themes
     const newTheme = theme === dracula ? emerald : dracula
@@ -65,14 +69,14 @@ export function Navbar({ user }) {
           <NavLink className='btn btn-ghost btn-circle btn-md ml-4' to={`/cart`}>
             <div className='indicator'>
               <FaShoppingCart className='h-6 w-6' />
-              <span className='badge badge-sm badge-primary indicator-item'>{user && user.cart && user.cart.length || 0}</span>
+              <span className='badge badge-sm badge-primary indicator-item'>{totalCartProducts}</span>
             </div>
           </NavLink>
         </div>
       </div>
       <div className=' text-center'>
         <ul className='menu menu-horizontal'>
-          {user ? <li><span className='btn btn-secondary btn-outline capitalize ml-2'>hello {user.username}</span></li> : null}
+          {user ? <li><span className='btn btn-secondary btn-outline capitalize ml-2'>hello {user.fullname}</span></li> : null}
           {!user ? <li><NavLink className='capitalize ml-2' to={`/login`}>log in</NavLink></li> :
             <li><button onClick={onLogout} className='btn btn-accent capitalize ml-2'>log out</button></li>}
           {!user ? <li><NavLink className='capitalize ml-2' to={`/createUser`}>create account</NavLink></li> : null}

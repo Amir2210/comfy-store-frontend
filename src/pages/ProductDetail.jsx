@@ -14,6 +14,7 @@ export function ProductDetail() {
   const navigate = useNavigate()
   const [product, setProduct] = useState(null)
   const [color, setColor] = useState(null)
+  const [amount, setAmount] = useState(1)
   const { productId } = useParams()
 
   useEffect(() => {
@@ -32,8 +33,14 @@ export function ProductDetail() {
     }
   }
 
-  function onAddToCart() {
-    addToCart(product)
+  async function onAddToCart(color) {
+    try {
+      const productToSave = { ...product, color: color, amount: +amount }
+      addToCart(productToSave)
+      toast.success(`${productToSave.title} has been successfully added to cart`)
+    } catch (error) {
+
+    }
   }
   if (!product) return <div>Loading</div>
   return (
@@ -56,7 +63,7 @@ export function ProductDetail() {
               {product.colors.map(productColor => <button onClick={() => setColor(productColor)} type='button' className={`badge w-6 h-6 mr-2 ${productColor === color && 'border-2 border-secondary'}`} key={productColor} style={{ backgroundColor: `${productColor}` }}></button>)}
             </div>
             <h3 className='capitalize text-xl my-4'>amount</h3>
-            <select className="select select-secondary w-full max-w-xs" defaultChecked={1}>
+            <select className="select select-secondary w-full max-w-xs" defaultChecked={1} onChange={(ev) => setAmount(ev.target.value)}>
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -69,7 +76,7 @@ export function ProductDetail() {
               <option>10</option>
             </select>
             <div className='my-6'>
-              <button onClick={onAddToCart} className='btn btn-secondary capitalize'>add to bag</button>
+              <button onClick={() => onAddToCart(color)} className='btn btn-secondary capitalize'>add to bag</button>
             </div>
           </div>
         </section >
