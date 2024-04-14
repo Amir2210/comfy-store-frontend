@@ -1,11 +1,11 @@
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Navbar } from '../cmps/Navbar'
 import { Link } from "react-router-dom"
 import { FaArrowRightLong } from "react-icons/fa6"
 import { useEffect, useState } from 'react'
 import { featuredProductsService } from '../services/featuredProducts.service'
 import { productsService } from '../services/products.service'
-import { useSelector } from 'react-redux'
+
 import { toast } from 'react-toastify'
 import { addToCart } from '../store/actions/user.actions'
 

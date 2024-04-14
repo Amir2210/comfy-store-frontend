@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux'
 import { Navbar } from '../cmps/Navbar'
-import { useState } from 'react'
-import { changeProductAmount } from '../store/actions/user.actions'
+import { changeProductAmount, removeProductFromCart } from '../store/actions/user.actions'
 
 export function Cart() {
   const userCart = useSelector((storeState) => storeState.userModule.loggedInUser.cart)
@@ -13,9 +12,11 @@ export function Cart() {
   const tax = userCart.reduce((acc, product) => acc + product.amount, 0) * 10
 
   function onChangeAmount(productId, amount) {
-    // console.log('productId:', productId)
-    // console.log('amount:', amount)
     changeProductAmount(productId, amount)
+  }
+
+  function onRemoveFromCart(productId) {
+    removeProductFromCart(productId)
   }
 
 
@@ -51,7 +52,7 @@ export function Cart() {
                   <option>9</option>
                   <option>10</option>
                 </select>
-                <button className='btn btn-error capitalize text-base mt-4'>remove</button>
+                <button onClick={() => onRemoveFromCart(product._id)} className='btn btn-error capitalize text-base mt-4'>remove</button>
               </div>
               <div className='flex flex-col items-start '>
                 <h1 className='mt-4 capitalize text-2xl tracking-wider font-medium'>price</h1>
