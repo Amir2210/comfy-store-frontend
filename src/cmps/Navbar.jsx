@@ -20,8 +20,9 @@ function getThemeFromLocal() {
 export function Navbar() {
   const [theme, setTheme] = useState(getThemeFromLocal())
   const user = useSelector((storeState) => storeState.userModule.loggedInUser)
+  const anonymousCart = useSelector((storeState) => storeState.userModule.anonymousCart)
   const navigate = useNavigate()
-  const totalCartProducts = user ? user.cart.reduce((acc, product) => acc + product.amount, 0) : 0
+  const totalCartProducts = user ? user.cart.reduce((acc, product) => acc + product.amount, 0) : anonymousCart.reduce((acc, product) => acc + product.amount, 0)
   function handleTheme() {
     const { dracula, emerald } = themes
     const newTheme = theme === dracula ? emerald : dracula

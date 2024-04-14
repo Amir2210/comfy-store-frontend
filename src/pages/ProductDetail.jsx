@@ -7,7 +7,8 @@ import { featuredProductsService } from '../services/featuredProducts.service'
 import { productsService } from '../services/products.service'
 
 import { toast } from 'react-toastify'
-import { addToCart } from '../store/actions/user.actions'
+import { addToCart, addToAnonymousCart } from '../store/actions/user.actions'
+import { useSelector } from 'react-redux'
 
 export function ProductDetail() {
   const navigate = useNavigate()
@@ -15,7 +16,7 @@ export function ProductDetail() {
   const [color, setColor] = useState(null)
   const [amount, setAmount] = useState(1)
   const { productId } = useParams()
-
+  const user = useSelector((storeState) => storeState.userModule.loggedInUser)
   useEffect(() => {
     loadProduct()
   }, [])
@@ -33,12 +34,18 @@ export function ProductDetail() {
   }
 
   async function onAddToCart(color) {
-    try {
-      const productToSave = { ...product, color: color, amount: +amount }
-      addToCart(productToSave)
+    const productToSave = { ...product, color: color, amount: +amount }
+    if (user) {
+      try {
+        addToCart(productToSave)
+        toast.success(`${productToSave.title} has been successfully added to cart`)
+      } catch (error) {
+        toast.error(`sorry we can't handle your request right now`)
+      }
+    }
+    else {
+      addToAnonymousCart(productToSave)
       toast.success(`${productToSave.title} has been successfully added to cart`)
-    } catch (error) {
-
     }
   }
   if (!product) return <div>Loading</div>

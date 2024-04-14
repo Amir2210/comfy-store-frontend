@@ -1,22 +1,36 @@
 import { useSelector } from 'react-redux'
 import { Navbar } from '../cmps/Navbar'
 import { changeProductAmount, removeProductFromCart } from '../store/actions/user.actions'
+import { toast } from 'react-toastify'
+import { Link } from "react-router-dom"
 
 export function Cart() {
-  const userCart = useSelector((storeState) => storeState.userModule.loggedInUser.cart)
-  const subTotal = userCart.reduce((acc, product) => acc + (product.price * product.amount), 0)
-  const shipping = userCart.reduce((acc, product) => {
+  const userCart = useSelector((storeState) => storeState.userModule.loggedInUser?.cart)
+  const anonymousCart = useSelector((storeState) => storeState.userModule.anonymousCart)
+  const combinedCart = userCart ? [...userCart] : [...anonymousCart]
+  const subTotal = combinedCart.reduce((acc, product) => acc + (product.price * product.amount), 0)
+  const shipping = combinedCart.reduce((acc, product) => {
     if (!product.shipping) return acc + 22
     return acc
   }, 0)
-  const tax = userCart.reduce((acc, product) => acc + product.amount, 0) * 10
+  const tax = combinedCart.reduce((acc, product) => acc + product.amount, 0) * 10
 
-  function onChangeAmount(productId, amount) {
-    changeProductAmount(productId, amount)
+  async function onChangeAmount(productId, amount) {
+    try {
+      changeProductAmount(productId, amount)
+      toast.success(`amount has been successfully changed`)
+    } catch (error) {
+      toast.error(`can't change the amount pls try again later`)
+    }
   }
 
-  function onRemoveFromCart(productId) {
-    removeProductFromCart(productId)
+  async function onRemoveFromCart(productId) {
+    try {
+      removeProductFromCart(productId)
+      toast.success(`product has been successfully removed`)
+    } catch (error) {
+      toast.error(`can't remove the product pls try again later`)
+    }
   }
 
 
@@ -24,11 +38,11 @@ export function Cart() {
     <>
       <Navbar />
       <section className='align-elemets'>
-        <h1 className='text-4xl capitalize mt-8'>shopping cart</h1>
+        <h1 className='text-4xl capitalize mt-8'>{combinedCart.length ? 'shopping cart' : 'Your Cart Is Empty'}</h1>
         <div className='w-full h-1 bg-secondary mt-4'></div>
         <div className='sm:grid sm:grid-cols-4 sm:gap-5 flex flex-col'>
           <div className='sm:col-span-3'>
-            {userCart.map((product, index) => <article className=' flex flex-col items-start md:grid md:grid-cols-5 p-7 sm:shadow-2xl sm:rounded-lg border-b-4  text-center cursor-pointer mt-6' key={index}>
+            {!combinedCart.length ? null : combinedCart.map((product, index) => <article className=' flex flex-col items-start md:grid md:grid-cols-5 p-7 sm:shadow-2xl sm:rounded-lg border-b-4  text-center cursor-pointer mt-6' key={index}>
               <img className='size-28 object-cover rounded-lg  sm:m-0' src={product.image} alt={product.title} />
               <div className=' col-span-2 flex flex-col items-start '>
                 <h1 className='mt-4  capitalize text-2xl tracking-wider font-medium'>{product.title}</h1>
@@ -77,6 +91,9 @@ export function Cart() {
               <span className='capitalize text-2xl'>total</span>
               <span className='text-2xl font-semibold'>${(parseFloat(subTotal + shipping + tax).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
             </div>
+          </div>
+          <div className='col-end-5 mt-4 sm:mt-0'>
+            <Link to={`/login`} className='btn btn-secondary capitalize'>please login</Link>
           </div>
         </div>
       </section>
