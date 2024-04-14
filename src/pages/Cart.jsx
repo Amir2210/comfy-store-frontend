@@ -1,10 +1,84 @@
+import { useSelector } from 'react-redux'
 import { Navbar } from '../cmps/Navbar'
+import { useState } from 'react'
+import { changeProductAmount } from '../store/actions/user.actions'
 
 export function Cart() {
+  const userCart = useSelector((storeState) => storeState.userModule.loggedInUser.cart)
+  const subTotal = userCart.reduce((acc, product) => acc + (product.price * product.amount), 0)
+  const shipping = userCart.reduce((acc, product) => {
+    if (!product.shipping) return acc + 22
+    return acc
+  }, 0)
+  const tax = userCart.reduce((acc, product) => acc + product.amount, 0) * 10
+
+  function onChangeAmount(productId, amount) {
+    // console.log('productId:', productId)
+    // console.log('amount:', amount)
+    changeProductAmount(productId, amount)
+  }
+
+
   return (
     <>
       <Navbar />
-      <h1>im cart page</h1>
+      <section className='align-elemets'>
+        <h1 className='text-4xl capitalize mt-8'>shopping cart</h1>
+        <div className='w-full h-1 bg-secondary mt-4'></div>
+        <div className='sm:grid sm:grid-cols-4 sm:gap-5 flex flex-col'>
+          <div className='sm:col-span-3'>
+            {userCart.map((product, index) => <article className=' flex flex-col items-start md:grid md:grid-cols-5 p-7 sm:shadow-2xl sm:rounded-lg border-b-4  text-center cursor-pointer mt-6' key={index}>
+              <img className='size-28 object-cover rounded-lg  sm:m-0' src={product.image} alt={product.title} />
+              <div className=' col-span-2 flex flex-col items-start '>
+                <h1 className='mt-4  capitalize text-2xl tracking-wider font-medium'>{product.title}</h1>
+                <h2 className='mt-4 capitalize text-xl tracking-wider font-medium'>{product.company}</h2>
+                <div className='flex items-center justify-center mt-4'>
+                  <span className='mr-3 text-xl '>color:</span>
+                  <span className='badge w-6 h-6' style={{ backgroundColor: `${product.color}` }}></span>
+                </div>
+              </div>
+              <div className='flex flex-col items-start '>
+                <h1 className='mt-4 capitalize text-2xl tracking-wider font-medium'>amount</h1>
+                <select className="select select-secondary mt-4" defaultChecked={product.amount} value={product.amount} onChange={(ev) => onChangeAmount(product._id, +ev.target.value)}>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                  <option>10</option>
+                </select>
+                <button className='btn btn-error capitalize text-base mt-4'>remove</button>
+              </div>
+              <div className='flex flex-col items-start '>
+                <h1 className='mt-4 capitalize text-2xl tracking-wider font-medium'>price</h1>
+                <h2 className='mt-4 font-medium tracking-wider'>$ {(parseFloat(product.price * product.amount).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h2>
+              </div>
+            </article>)}
+          </div>
+          <div className='mt-6 card-body bg-base-200 max-h-64 sm:rounded-lg text-center'>
+            <div className='flex justify-between border-b-2 border-base-300 pb-3 text-sm'>
+              <span className='capitalize '>subtotal</span>
+              <span>${(parseFloat(subTotal).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+            </div>
+            <div className='flex justify-between border-b-2 border-base-300 pb-2 text-sm'>
+              <span className='capitalize text-sm'>shipping</span>
+              <span>${(parseFloat(shipping).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+            </div>
+            <div className='flex justify-between border-b-2 border-base-300 pb-2 text-sm'>
+              <span className='capitalize '>tax</span>
+              <span>${(parseFloat(tax).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+            </div>
+            <div className='flex justify-between  pb-2 mt-4'>
+              <span className='capitalize text-2xl'>total</span>
+              <span className='text-2xl font-semibold'>${(parseFloat(subTotal + shipping + tax).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   )
 }

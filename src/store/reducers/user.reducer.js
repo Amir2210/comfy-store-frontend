@@ -4,19 +4,21 @@ export const SET_USER = 'SET_USER'
 export const SET_WATCHED_USER = 'SET_WATCHED_USER'
 //CART
 export const ADD_TO_CART = 'ADD_TO_CART'
-
+export const CHANGE_PRODUCT_AMOUNT = 'CHANGE_PRODUCT_AMOUNT'
 const initialState = {
     loggedInUser: userService.getloggedInUser(),
 }
 
 export function userReducer(state = initialState, action = {}) {
+    let userCart
+    let productToSave
     switch (action.type) {
         // user
         case SET_USER:
             return { ...state, loggedInUser: action.user }
         case ADD_TO_CART:
-            const userCart = [...state.loggedInUser.cart]
-            const productToSave = {
+            userCart = [...state.loggedInUser.cart]
+            productToSave = {
                 category: action.product.category,
                 color: action.product.color,
                 amount: action.product.amount,
@@ -29,6 +31,16 @@ export function userReducer(state = initialState, action = {}) {
                 _id: action.product._id
             }
             userCart.push(productToSave)
+            return {
+                ...state,
+                loggedInUser: { ...state.loggedInUser, cart: userCart }
+            }
+        case CHANGE_PRODUCT_AMOUNT:
+            userCart = [...state.loggedInUser.cart]
+            const productToChangeIdx = userCart.findIndex(product => action.productId === product._id)
+            const productToChange = userCart.find(product => action.productId === product._id)
+            productToChange.amount = action.amount
+            userCart.splice(productToChangeIdx, 1, productToChange)
             return {
                 ...state,
                 loggedInUser: { ...state.loggedInUser, cart: userCart }
