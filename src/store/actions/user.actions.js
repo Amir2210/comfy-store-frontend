@@ -44,37 +44,32 @@ export async function logout() {
 }
 
 
-export async function addToCart(product) {
+export function addToCart(product) {
     store.dispatch({
         type: ADD_TO_CART,
         product
     })
-    try {
-        const loggedInUser = store.getState().userModule.loggedInUser
-        await userService.update(loggedInUser)
-    } catch (error) {
-        console.log('error:', error)
-    }
+    _updateUser()
 }
 
-export async function changeProductAmount(productId, amount) {
+export function changeProductAmount(productId, amount) {
     store.dispatch({
         type: CHANGE_PRODUCT_AMOUNT,
         productId, amount
     })
-    try {
-        const loggedInUser = store.getState().userModule.loggedInUser
-        await userService.update(loggedInUser)
-    } catch (error) {
-        console.log('error:', error)
-    }
+    _updateUser()
 }
 
-export async function removeProductFromCart(productId) {
+export function removeProductFromCart(productId) {
     store.dispatch({
         type: REMOVE_FROM_CART,
         productId
     })
+    _updateUser()
+
+}
+
+async function _updateUser() {
     try {
         const loggedInUser = store.getState().userModule.loggedInUser
         await userService.update(loggedInUser)
