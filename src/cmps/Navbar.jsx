@@ -8,6 +8,7 @@ import { NavLinks } from './NavLinks'
 
 import { logout, } from '../store/actions/user.actions.js'
 import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 const themes = {
   dracula: 'dracula',
@@ -37,9 +38,11 @@ export function Navbar() {
   async function onLogout() {
     try {
       await logout()
+      toast.success(`logged out successfully`)
       navigate('/')
     } catch (err) {
       console.log('err:', err)
+      toast.error(`failed to logged out`)
     }
   }
   return (
