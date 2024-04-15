@@ -48,12 +48,12 @@ export function Cart() {
         <div className='sm:grid sm:grid-cols-4 sm:gap-5 flex flex-col'>
           <div className='sm:col-span-3'>
             {!combinedCart.length ? null : combinedCart.map((product, index) => <article className=' flex flex-col items-start md:grid md:grid-cols-5 p-7 sm:shadow-2xl sm:rounded-lg border-b-4  text-center cursor-pointer mt-6' key={index}>
-              <img className='size-28 object-cover rounded-lg  sm:m-0' src={product.image} alt={product.title} />
+              <img className=' size-56 sm:size-32 object-cover rounded-lg  sm:m-0' src={product.image} alt={product.title} />
               <div className=' col-span-2 flex flex-col items-start '>
                 <h1 className='mt-4  capitalize text-2xl tracking-wider font-medium'>{product.title}</h1>
-                <h2 className='mt-4 capitalize text-xl tracking-wider font-medium'>{product.company}</h2>
+                <h2 className='mt-4 capitalize text-xl tracking-wider font-medium'>company: {product.company}</h2>
                 <div className='flex items-center justify-center mt-4'>
-                  <span className='mr-3 text-xl '>color:</span>
+                  <span className='mr-3 text-xl font-medium'>color:</span>
                   <span className='badge w-6 h-6' style={{ backgroundColor: `${product.color}` }}></span>
                 </div>
               </div>
@@ -75,31 +75,33 @@ export function Cart() {
               </div>
               <div className='flex flex-col items-start '>
                 <h1 className='mt-4 capitalize text-2xl tracking-wider font-medium'>price</h1>
-                <h2 className='mt-4 font-medium tracking-wider'>$ {(parseFloat(product.price * product.amount).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h2>
+                <h2 className='mt-4 font-medium tracking-wider text-lg'>$ {(parseFloat(product.price * product.amount).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h2>
               </div>
             </article>)}
           </div>
-          <div className='mt-6 card-body bg-base-200 max-h-64 sm:rounded-lg text-center'>
-            <div className='flex justify-between border-b-2 border-base-300 pb-3 text-sm'>
-              <span className='capitalize '>subtotal</span>
-              <span>${(parseFloat(subTotal).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+          <div className=''>
+            <div className='mt-6 card-body bg-base-200 max-h-64 sm:rounded-lg text-center'>
+              <div className='flex justify-between border-b-2 border-base-300 pb-3 text-sm'>
+                <span className='capitalize '>subtotal</span>
+                <span>${(parseFloat(subTotal).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+              </div>
+              <div className='flex justify-between border-b-2 border-base-300 pb-2 text-sm'>
+                <span className='capitalize text-sm'>shipping</span>
+                <span>${(parseFloat(shipping).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+              </div>
+              <div className='flex justify-between border-b-2 border-base-300 pb-2 text-sm'>
+                <span className='capitalize '>tax</span>
+                <span>${(parseFloat(tax).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+              </div>
+              <div className='flex justify-between  pb-2 mt-4'>
+                <span className='capitalize text-2xl'>total</span>
+                <span className='text-2xl font-semibold'>${(parseFloat(subTotal + shipping + tax).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+              </div>
             </div>
-            <div className='flex justify-between border-b-2 border-base-300 pb-2 text-sm'>
-              <span className='capitalize text-sm'>shipping</span>
-              <span>${(parseFloat(shipping).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+            <div className='col-end-5 my-4 sm:mb-4'>
+              {!userCart && <Link to={`/login`} className='btn btn-secondary capitalize'>please login</Link>}
+              {userCart && <Link className='btn btn-secondary capitalize'>proceed to check out</Link>}
             </div>
-            <div className='flex justify-between border-b-2 border-base-300 pb-2 text-sm'>
-              <span className='capitalize '>tax</span>
-              <span>${(parseFloat(tax).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
-            </div>
-            <div className='flex justify-between  pb-2 mt-4'>
-              <span className='capitalize text-2xl'>total</span>
-              <span className='text-2xl font-semibold'>${(parseFloat(subTotal + shipping + tax).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
-            </div>
-          </div>
-          <div className='col-end-5 mt-4 sm:mt-0'>
-            {!userCart && <Link to={`/login`} className='btn btn-secondary capitalize'>please login</Link>}
-            {userCart && <Link className='btn btn-secondary capitalize'>proceed to check out</Link>}
           </div>
         </div>
       </section>
