@@ -1,5 +1,5 @@
 import { userService } from "../../services/user.service.js"
-import { SET_USER, ADD_TO_CART, SET_WATCHED_USER, CHANGE_PRODUCT_AMOUNT, REMOVE_FROM_CART, ADD_TO_ANONYMOUS_CART } from "../reducers/user.reducer.js"
+import { SET_USER, ADD_TO_CART, SET_WATCHED_USER, CHANGE_PRODUCT_AMOUNT, REMOVE_FROM_CART, ADD_TO_ANONYMOUS_CART, CHANGE_PRODUCT_AMOUNT_ANONYMOUS_CART } from "../reducers/user.reducer.js"
 import { store } from "../store.js"
 
 export async function loadUser(userId) {
@@ -84,5 +84,12 @@ export function addToAnonymousCart(product) {
     store.dispatch({
         type: ADD_TO_ANONYMOUS_CART,
         product
+    })
+}
+
+export function changeAnonymousCartProductAmount(productId, amount) {
+    store.dispatch({
+        type: CHANGE_PRODUCT_AMOUNT_ANONYMOUS_CART,
+        productId, amount
     })
 }

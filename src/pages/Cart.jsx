@@ -1,11 +1,12 @@
 import { useSelector } from 'react-redux'
 import { Navbar } from '../cmps/Navbar'
-import { changeProductAmount, removeProductFromCart } from '../store/actions/user.actions'
+import { changeAnonymousCartProductAmount, changeProductAmount, removeProductFromCart } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { Link } from "react-router-dom"
 
 export function Cart() {
   const userCart = useSelector((storeState) => storeState.userModule.loggedInUser?.cart)
+  console.log('userCart:', userCart)
   const anonymousCart = useSelector((storeState) => storeState.userModule.anonymousCart)
   const combinedCart = userCart ? [...userCart] : [...anonymousCart]
   const subTotal = combinedCart.reduce((acc, product) => acc + (product.price * product.amount), 0)
@@ -16,11 +17,15 @@ export function Cart() {
   const tax = combinedCart.reduce((acc, product) => acc + product.amount, 0) * 10
 
   async function onChangeAmount(productId, amount) {
-    try {
-      changeProductAmount(productId, amount)
-      toast.success(`amount has been successfully changed`)
-    } catch (error) {
-      toast.error(`can't change the amount pls try again later`)
+    if (userCart) {
+      try {
+        changeProductAmount(productId, amount)
+        toast.success(`amount has been successfully changed`)
+      } catch (error) {
+        toast.error(`can't change the amount pls try again later`)
+      }
+    } else {
+      changeAnonymousCartProductAmount(productId, amount)
     }
   }
 
@@ -93,7 +98,8 @@ export function Cart() {
             </div>
           </div>
           <div className='col-end-5 mt-4 sm:mt-0'>
-            <Link to={`/login`} className='btn btn-secondary capitalize'>please login</Link>
+            {!userCart && <Link to={`/login`} className='btn btn-secondary capitalize'>please login</Link>}
+            {userCart && <Link className='btn btn-secondary capitalize'>proceed to check out</Link>}
           </div>
         </div>
       </section>
