@@ -4,6 +4,7 @@ const STORAGE_KEY = 'anonymosCartDB'
 export const anonymousCartService = {
   query,
   save,
+  remove
 }
 
 async function query() {
@@ -23,4 +24,8 @@ async function save(product) {
     savedProduct = await storageService.post(STORAGE_KEY, product)
   }
   return savedProduct
+}
+
+function remove(productId) {
+  return storageService.remove(STORAGE_KEY, productId)
 }

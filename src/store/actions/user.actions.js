@@ -1,6 +1,6 @@
 import { anonymousCartService } from '../../services/anonymousCartService.js';
 import { userService } from "../../services/user.service.js"
-import { SET_USER, ADD_TO_CART, SET_WATCHED_USER, CHANGE_PRODUCT_AMOUNT, REMOVE_FROM_CART, ADD_TO_ANONYMOUS_CART, CHANGE_PRODUCT_AMOUNT_ANONYMOUS_CART, SET_ANONYMOUS_CART, SET_IS_LOADING } from "../reducers/user.reducer.js"
+import { SET_USER, ADD_TO_CART, SET_WATCHED_USER, CHANGE_PRODUCT_AMOUNT, REMOVE_FROM_CART, ADD_TO_ANONYMOUS_CART, CHANGE_PRODUCT_AMOUNT_ANONYMOUS_CART, SET_ANONYMOUS_CART, SET_IS_LOADING, REMOVE_FROM_ANONYMOUS_CART } from "../reducers/user.reducer.js"
 import { store } from "../store.js"
 
 export async function loadUser(userId) {
@@ -67,7 +67,6 @@ export function removeProductFromCart(productId) {
         productId
     })
     _updateUser()
-
 }
 
 async function _updateUser() {
@@ -84,14 +83,13 @@ async function _updateUser() {
 export async function loadAnonymousProductsCart() {
     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
     try {
-        try {
-            const anonymousProductsCart = await anonymousCartService.query()
-            store.dispatch({ type: SET_ANONYMOUS_CART, anonymousProductsCart })
-        } catch (err) {
-            console.log('item action -> Cannot load items', err)
-            throw err
-        }
-    } finally {
+        const anonymousProductsCart = await anonymousCartService.query()
+        store.dispatch({ type: SET_ANONYMOUS_CART, anonymousProductsCart })
+    } catch (err) {
+        console.log('item action -> Cannot load items', err)
+        throw err
+    }
+    finally {
         store.dispatch({ type: SET_IS_LOADING, isLoading: false })
     }
 }
@@ -118,6 +116,18 @@ export async function changeAnonymousCartProductAmount(productId, amount) {
         store.dispatch({
             type: CHANGE_PRODUCT_AMOUNT_ANONYMOUS_CART,
             savedProduct, anonymousProductToChangeIdx
+        })
+    } catch (error) {
+        console.log('error:', error)
+    }
+}
+
+export async function removeProductFromAnonymousCart(productId) {
+    try {
+        await anonymousCartService.remove(productId)
+        store.dispatch({
+            type: REMOVE_FROM_ANONYMOUS_CART,
+            productId
         })
     } catch (error) {
         console.log('error:', error)

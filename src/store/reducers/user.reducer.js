@@ -11,7 +11,7 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 export const ADD_TO_ANONYMOUS_CART = 'ADD_TO_ANONYMOUS_CART'
 export const CHANGE_PRODUCT_AMOUNT_ANONYMOUS_CART = 'CHANGE_PRODUCT_AMOUNT_ANONYMOUS_CART'
 export const SET_ANONYMOUS_CART = 'SET_ANONYMOUS_CART'
-
+export const REMOVE_FROM_ANONYMOUS_CART = 'REMOVE_FROM_ANONYMOUS_CART'
 // loading
 export const SET_IS_LOADING = 'SET_IS_LOADING'
 
@@ -81,6 +81,13 @@ export function userReducer(state = initialState, action = {}) {
         case CHANGE_PRODUCT_AMOUNT_ANONYMOUS_CART:
             anonymousCart = [...state.anonymousCart]
             anonymousCart.splice(action.anonymousProductToChangeIdx, 1, action.savedProduct)
+            return {
+                ...state,
+                anonymousCart: anonymousCart
+            }
+        case REMOVE_FROM_ANONYMOUS_CART:
+            anonymousCart = [...state.anonymousCart]
+            anonymousCart = anonymousCart.filter(product => product._id !== action.productId)
             return {
                 ...state,
                 anonymousCart: anonymousCart

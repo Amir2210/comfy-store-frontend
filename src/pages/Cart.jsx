@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { Navbar } from '../cmps/Navbar'
-import { changeAnonymousCartProductAmount, changeProductAmount, loadAnonymousProductsCart, removeProductFromCart } from '../store/actions/user.actions'
+import { changeAnonymousCartProductAmount, changeProductAmount, loadAnonymousProductsCart, removeProductFromAnonymousCart, removeProductFromCart } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { Link } from "react-router-dom"
 import { useEffect } from 'react'
@@ -34,11 +34,15 @@ export function Cart() {
   }
 
   async function onRemoveFromCart(productId) {
-    try {
-      removeProductFromCart(productId)
-      toast.success(`product has been successfully removed`)
-    } catch (error) {
-      toast.error(`can't remove the product pls try again later`)
+    if (userCart) {
+      try {
+        removeProductFromCart(productId)
+        toast.success(`product has been successfully removed`)
+      } catch (error) {
+        toast.error(`can't remove the product pls try again later`)
+      }
+    } else {
+      removeProductFromAnonymousCart(productId)
     }
   }
 
