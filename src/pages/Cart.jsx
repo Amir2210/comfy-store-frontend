@@ -8,7 +8,6 @@ import { useEffect } from 'react'
 export function Cart() {
   const userCart = useSelector((storeState) => storeState.userModule.loggedInUser?.cart)
   const anonymousCart = useSelector((storeState) => storeState.userModule.anonymousCart)
-  console.log('anonymousCart:', anonymousCart)
   const combinedCart = userCart ? [...userCart] : [...anonymousCart]
   const subTotal = combinedCart.reduce((acc, product) => acc + (product.price * product.amount), 0)
   const shipping = combinedCart.reduce((acc, product) => {

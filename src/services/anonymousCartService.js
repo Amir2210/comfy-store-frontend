@@ -16,13 +16,10 @@ async function query() {
 }
 
 async function save(product) {
-  // delete product._id
   var savedProduct
   if (product.id) {
-    console.log('in')
     savedProduct = await storageService.put(STORAGE_KEY, product)
   } else {
-    console.log('elese')
     savedProduct = await storageService.post(STORAGE_KEY, product)
   }
   return savedProduct
