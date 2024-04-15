@@ -10,10 +10,15 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 //anonymousCart
 export const ADD_TO_ANONYMOUS_CART = 'ADD_TO_ANONYMOUS_CART'
 export const CHANGE_PRODUCT_AMOUNT_ANONYMOUS_CART = 'CHANGE_PRODUCT_AMOUNT_ANONYMOUS_CART'
+export const SET_ANONYMOUS_CART = 'SET_ANONYMOUS_CART'
+
+// loading
+export const SET_IS_LOADING = 'SET_IS_LOADING'
 
 const initialState = {
     loggedInUser: userService.getloggedInUser(),
-    anonymousCart: []
+    anonymousCart: [],
+    isLoading: false,
 }
 
 export function userReducer(state = initialState, action = {}) {
@@ -63,21 +68,25 @@ export function userReducer(state = initialState, action = {}) {
                 loggedInUser: { ...state.loggedInUser, cart: userCart }
             }
         //anonymousCart
+        case SET_ANONYMOUS_CART:
+            return {
+                ...state,
+                anonymousCart: action.anonymousProductsCart
+            }
         case ADD_TO_ANONYMOUS_CART:
             return {
                 ...state,
-                anonymousCart: [...state.anonymousCart, { ...action.product }]
+                anonymousCart: [...state.anonymousCart, { ...action.savedProduct }]
             }
         case CHANGE_PRODUCT_AMOUNT_ANONYMOUS_CART:
             anonymousCart = [...state.anonymousCart]
-            const anonymousProductToChangeIdx = anonymousCart.findIndex(product => action.productId === product._id)
-            const anonymousProductToChange = anonymousCart.find(product => action.productId === product._id)
-            anonymousProductToChange.amount = action.amount
-            anonymousCart.splice(anonymousProductToChangeIdx, 1, anonymousProductToChange)
+            anonymousCart.splice(action.anonymousProductToChangeIdx, 1, action.savedProduct)
             return {
                 ...state,
                 anonymousCart: anonymousCart
             }
+        case SET_IS_LOADING:
+            return { ...state, isLoading: action.isLoading }
         default:
             return state
     }

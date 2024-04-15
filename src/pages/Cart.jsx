@@ -1,13 +1,14 @@
 import { useSelector } from 'react-redux'
 import { Navbar } from '../cmps/Navbar'
-import { changeAnonymousCartProductAmount, changeProductAmount, removeProductFromCart } from '../store/actions/user.actions'
+import { changeAnonymousCartProductAmount, changeProductAmount, loadAnonymousProductsCart, removeProductFromCart } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { Link } from "react-router-dom"
+import { useEffect } from 'react'
 
 export function Cart() {
   const userCart = useSelector((storeState) => storeState.userModule.loggedInUser?.cart)
-  console.log('userCart:', userCart)
   const anonymousCart = useSelector((storeState) => storeState.userModule.anonymousCart)
+  console.log('anonymousCart:', anonymousCart)
   const combinedCart = userCart ? [...userCart] : [...anonymousCart]
   const subTotal = combinedCart.reduce((acc, product) => acc + (product.price * product.amount), 0)
   const shipping = combinedCart.reduce((acc, product) => {
@@ -15,6 +16,10 @@ export function Cart() {
     return acc
   }, 0)
   const tax = combinedCart.reduce((acc, product) => acc + product.amount, 0) * 10
+
+  useEffect(() => {
+    if (!userCart) loadAnonymousProductsCart()
+  }, [])
 
   async function onChangeAmount(productId, amount) {
     if (userCart) {
