@@ -1,18 +1,16 @@
-import { useSelector } from 'react-redux';
 import { Navbar } from '../cmps/Navbar';
 import { useLocation } from 'react-router-dom';
 
 export function Checkout() {
-  const userCart = useSelector((storeState) => storeState.userModule.loggedInUser?.cart)
   const location = useLocation()
-  const { subTotal, shipping, tax } = location.state || {}
+  const { subTotal, shipping, tax, combinedCart } = location.state || {}
   return (
     <>
       <Navbar />
       <section className='align-elemets'>
-        <h1 className='text-4xl capitalize mt-8'>{userCart.length ? 'place your order' : 'Your Cart Is Empty'}</h1>
+        <h1 className='text-4xl capitalize mt-8'>{combinedCart.length ? 'place your order' : 'Your Cart Is Empty'}</h1>
         <div className='w-full h-1 bg-secondary mt-4'></div>
-        {userCart.length ?
+        {combinedCart.length ?
           <div className='mt-4 sm:grid grid-cols-2 gap-20'>
             <div>
               <h2 className='text-2xl'>shipping information</h2>

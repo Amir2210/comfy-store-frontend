@@ -109,7 +109,7 @@ export function Cart() {
               </div>
               <div className='col-end-5 my-4 sm:mb-4'>
                 {!userCart && <Link to={`/login`} className='btn btn-secondary capitalize'>please login</Link>}
-                {userCart && <Link to={`/checkout`} state={{ subTotal, shipping, tax }} className='btn btn-secondary capitalize'>proceed to check out</Link>}
+                {userCart && <Link to={`/checkout`} state={{ subTotal, shipping, tax, combinedCart }} className='btn btn-secondary capitalize'>proceed to check out</Link>}
               </div>
             </div>
             : null
