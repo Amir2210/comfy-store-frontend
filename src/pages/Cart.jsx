@@ -87,7 +87,7 @@ export function Cart() {
               </div>
             </article>)}
           </div>
-          <div className=''>
+          <div>
             <div className='mt-6 card-body bg-base-200 max-h-64 sm:rounded-lg text-center'>
               <div className='flex justify-between border-b-2 border-base-300 pb-3 text-sm'>
                 <span className='capitalize '>subtotal</span>
@@ -108,7 +108,7 @@ export function Cart() {
             </div>
             <div className='col-end-5 my-4 sm:mb-4'>
               {!userCart && <Link to={`/login`} className='btn btn-secondary capitalize'>please login</Link>}
-              {userCart && <Link className='btn btn-secondary capitalize'>proceed to check out</Link>}
+              {userCart && <Link to={`/checkout`} state={{ subTotal, shipping, tax }} className='btn btn-secondary capitalize'>proceed to check out</Link>}
             </div>
           </div>
         </div>

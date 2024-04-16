@@ -14,6 +14,7 @@ import { Provider } from 'react-redux'
 
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
+import { Checkout } from './pages/Checkout'
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
           <Route path='/about' element={<About />} />
           <Route path='/products' element={<Products />} />
           <Route path='/cart' element={<Cart />} />
+          <Route path='/checkout' element={<Checkout />} />
           <Route path='/login' element={<Login />} />
           <Route path='/createUser' element={<CreateUser />} />
           <Route path='/product/:productId' element={<ProductDetail />} />
