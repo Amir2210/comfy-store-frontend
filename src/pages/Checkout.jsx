@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 export function Checkout() {
   const location = useLocation()
   const { subTotal, shipping, tax, combinedCart } = location.state || {}
+  console.log('combinedCart:', combinedCart)
   return (
     <>
       <Navbar />
