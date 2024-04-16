@@ -87,30 +87,33 @@ export function Cart() {
               </div>
             </article>)}
           </div>
-          <div>
-            <div className='mt-6 card-body bg-base-200 max-h-64 sm:rounded-lg text-center'>
-              <div className='flex justify-between border-b-2 border-base-300 pb-3 text-sm'>
-                <span className='capitalize '>subtotal</span>
-                <span>${(parseFloat(subTotal).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+          {combinedCart.length ?
+            <div>
+              <div className='mt-6 card-body bg-base-200 max-h-64 sm:rounded-lg text-center'>
+                <div className='flex justify-between border-b-2 border-base-300 pb-3 text-sm'>
+                  <span className='capitalize '>subtotal</span>
+                  <span>${(parseFloat(subTotal).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                </div>
+                <div className='flex justify-between border-b-2 border-base-300 pb-2 text-sm'>
+                  <span className='capitalize text-sm'>shipping</span>
+                  <span>${(parseFloat(shipping).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                </div>
+                <div className='flex justify-between border-b-2 border-base-300 pb-2 text-sm'>
+                  <span className='capitalize '>tax</span>
+                  <span>${(parseFloat(tax).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                </div>
+                <div className='flex justify-between  pb-2 mt-4'>
+                  <span className='capitalize text-2xl'>total</span>
+                  <span className='text-2xl font-semibold'>${(parseFloat(subTotal + shipping + tax).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                </div>
               </div>
-              <div className='flex justify-between border-b-2 border-base-300 pb-2 text-sm'>
-                <span className='capitalize text-sm'>shipping</span>
-                <span>${(parseFloat(shipping).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
-              </div>
-              <div className='flex justify-between border-b-2 border-base-300 pb-2 text-sm'>
-                <span className='capitalize '>tax</span>
-                <span>${(parseFloat(tax).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
-              </div>
-              <div className='flex justify-between  pb-2 mt-4'>
-                <span className='capitalize text-2xl'>total</span>
-                <span className='text-2xl font-semibold'>${(parseFloat(subTotal + shipping + tax).toString()).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+              <div className='col-end-5 my-4 sm:mb-4'>
+                {!userCart && <Link to={`/login`} className='btn btn-secondary capitalize'>please login</Link>}
+                {userCart && <Link to={`/checkout`} state={{ subTotal, shipping, tax }} className='btn btn-secondary capitalize'>proceed to check out</Link>}
               </div>
             </div>
-            <div className='col-end-5 my-4 sm:mb-4'>
-              {!userCart && <Link to={`/login`} className='btn btn-secondary capitalize'>please login</Link>}
-              {userCart && <Link to={`/checkout`} state={{ subTotal, shipping, tax }} className='btn btn-secondary capitalize'>proceed to check out</Link>}
-            </div>
-          </div>
+            : null
+          }
         </div>
       </section>
     </>
