@@ -6,7 +6,7 @@ import { NavLink, useNavigate } from "react-router-dom"
 import { NavLinks } from './NavLinks'
 
 
-import { logout, } from '../store/actions/user.actions.js'
+import { loadAnonymousProductsCart, logout, } from '../store/actions/user.actions.js'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { anonymousCartService } from '../services/anonymousCartService.js'
@@ -34,6 +34,7 @@ export function Navbar() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
     localStorage.setItem('theme', theme)
+    if (!user) loadAnonymousProductsCart()
   }, [theme])
 
   async function onLogout() {
