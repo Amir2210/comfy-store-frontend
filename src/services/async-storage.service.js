@@ -5,7 +5,8 @@ export const storageService = {
   put,
   remove,
   saveToStorage,
-  loadFromStorage
+  loadFromStorage,
+  deleteFromStorage
 }
 
 function query(entityType, delay = 0) {
@@ -74,4 +75,8 @@ function saveToStorage(key, val) {
 function loadFromStorage(key) {
   var val = localStorage.getItem(key)
   return JSON.parse(val)
+}
+
+function deleteFromStorage(entityType) {
+  localStorage.removeItem(entityType)
 }

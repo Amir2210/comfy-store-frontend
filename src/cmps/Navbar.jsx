@@ -9,6 +9,7 @@ import { NavLinks } from './NavLinks'
 import { logout, } from '../store/actions/user.actions.js'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
+import { anonymousCartService } from '../services/anonymousCartService.js'
 
 const themes = {
   dracula: 'dracula',
@@ -40,6 +41,7 @@ export function Navbar() {
       await logout()
       toast.success(`logged out successfully`)
       navigate('/')
+      anonymousCartService.clearStorage()
     } catch (err) {
       console.log('err:', err)
       toast.error(`failed to logged out`)

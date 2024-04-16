@@ -3,7 +3,6 @@ import { httpService } from './http.service.js'
 
 const BASE_URL = 'auth/'
 const STORAGE_KEY_LOGGEDIN = 'loggedInUser'
-const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 export const userService = {
     login,
     logout,
@@ -42,7 +41,6 @@ async function logout() {
 }
 
 function _setloggedInUser(user) {
-    console.log('user:', user)
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
     return user
 }

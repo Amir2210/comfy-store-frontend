@@ -4,7 +4,8 @@ const STORAGE_KEY = 'anonymosCartDB'
 export const anonymousCartService = {
   query,
   save,
-  remove
+  remove,
+  clearStorage
 }
 
 async function query() {
@@ -28,4 +29,9 @@ async function save(product) {
 
 function remove(productId) {
   return storageService.remove(STORAGE_KEY, productId)
+}
+
+function clearStorage() {
+  console.log('in')
+  return storageService.deleteFromStorage(STORAGE_KEY)
 }

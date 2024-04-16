@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom"
 import { Navbar } from '../cmps/Navbar'
 import { useState } from 'react'
 import { login } from '../store/actions/user.actions'
-import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 function getEmptyCredentials() {
   return {
@@ -25,8 +24,8 @@ export function Login() {
     ev.preventDefault()
     try {
       await login(credentials)
-      toast.success(`welcome ${credentials.username} 😀`)
       navigate('/')
+      window.location.reload()
     } catch (err) {
       toast.error(`invalid username or password`)
     }
@@ -39,8 +38,8 @@ export function Login() {
     }
     try {
       await login(demoCredentials)
-      toast.success(`welcome ${demoCredentials.username} 😀`)
       navigate('/')
+      window.location.reload()
     } catch (err) {
       toast.error(`invalid username or password`)
     }

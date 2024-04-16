@@ -5,7 +5,7 @@ import { store } from "../store.js"
 
 export async function loadUser(userId) {
     try {
-        const user = await userService.getById(userId);
+        const user = await userService.getById(userId)
         store.dispatch({ type: SET_WATCHED_USER, user })
     } catch (err) {
         console.log('Cannot load user', err)
@@ -15,6 +15,12 @@ export async function loadUser(userId) {
 export async function login(credentials) {
     try {
         const user = await userService.login(credentials)
+        const anonymousCart = store.getState().userModule.anonymousCart
+        if (anonymousCart.length > 0) {
+            await userService.update({ ...user, cart: anonymousCart })
+            store.dispatch({ type: SET_ANONYMOUS_CART, anonymousProductsCart: [] })
+        }
+
         store.dispatch({ type: SET_USER, user })
         return user
     } catch (err) {
@@ -22,6 +28,7 @@ export async function login(credentials) {
         throw err
     }
 }
+
 
 export async function signup(credentials) {
     try {
@@ -43,7 +50,6 @@ export async function logout() {
         throw err
     }
 }
-
 
 export function addToCart(product) {
     store.dispatch({
