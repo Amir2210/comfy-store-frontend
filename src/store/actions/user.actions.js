@@ -1,6 +1,6 @@
 import { anonymousCartService } from '../../services/anonymousCartService.js';
 import { userService } from "../../services/user.service.js"
-import { SET_USER, ADD_TO_CART, SET_WATCHED_USER, CHANGE_PRODUCT_AMOUNT, REMOVE_FROM_CART, ADD_TO_ANONYMOUS_CART, CHANGE_PRODUCT_AMOUNT_ANONYMOUS_CART, SET_ANONYMOUS_CART, SET_IS_LOADING, REMOVE_FROM_ANONYMOUS_CART } from "../reducers/user.reducer.js"
+import { SET_USER, ADD_TO_CART, SET_WATCHED_USER, CHANGE_PRODUCT_AMOUNT, REMOVE_FROM_CART, ADD_TO_ANONYMOUS_CART, CHANGE_PRODUCT_AMOUNT_ANONYMOUS_CART, SET_ANONYMOUS_CART, SET_IS_LOADING, REMOVE_FROM_ANONYMOUS_CART, CLEAR_CART } from "../reducers/user.reducer.js"
 import { store } from "../store.js"
 
 export async function loadUser(userId) {
@@ -75,6 +75,13 @@ export function removeProductFromCart(productId) {
     _updateUser()
 }
 
+export function clearCart() {
+    store.dispatch({
+        type: CLEAR_CART
+    })
+    _updateUser()
+}
+
 async function _updateUser() {
     try {
         const loggedInUser = store.getState().userModule.loggedInUser
@@ -83,6 +90,7 @@ async function _updateUser() {
         console.log('error:', error)
     }
 }
+
 
 // anonymousCart
 

@@ -6,6 +6,7 @@ export const SET_WATCHED_USER = 'SET_WATCHED_USER'
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const CHANGE_PRODUCT_AMOUNT = 'CHANGE_PRODUCT_AMOUNT'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
+export const CLEAR_CART = 'CLEAR_CART'
 
 //anonymousCart
 export const ADD_TO_ANONYMOUS_CART = 'ADD_TO_ANONYMOUS_CART'
@@ -66,6 +67,11 @@ export function userReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 loggedInUser: { ...state.loggedInUser, cart: userCart }
+            }
+        case CLEAR_CART:
+            return {
+                ...state,
+                loggedInUser: { ...state.loggedInUser, cart: [] }
             }
         //anonymousCart
         case SET_ANONYMOUS_CART:
