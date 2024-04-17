@@ -41,7 +41,7 @@ export function ProductDetail() {
     if (user) {
       try {
         addToCart(productToSave)
-        toast.success(`${productToSave.title} has been successfully added to cart`)
+        toast.success(`product added to cart`)
       } catch (error) {
         toast.error(`sorry we can't handle your request right now`)
       }
