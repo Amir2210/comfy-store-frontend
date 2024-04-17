@@ -10,6 +10,9 @@ import { toast } from 'react-toastify'
 import { addToCart, addToAnonymousCart } from '../store/actions/user.actions'
 import { useSelector } from 'react-redux'
 
+// LOADER
+import { RotatingTriangles } from 'react-loader-spinner'
+
 export function ProductDetail() {
   const navigate = useNavigate()
   const [product, setProduct] = useState(null)
@@ -48,7 +51,15 @@ export function ProductDetail() {
       toast.success(`${productToSave.title} has been successfully added to cart`)
     }
   }
-  if (!product) return <div>Loading</div>
+  if (!product) return <div className='flex w-full justify-center'><RotatingTriangles
+    visible={true}
+    height="80"
+    width="80"
+    color="#4fa94d"
+    ariaLabel="rotating-triangles-loading"
+    wrapperStyle={{}}
+    wrapperClass=""
+  /></div>
   return (
     <>
       <Navbar />
