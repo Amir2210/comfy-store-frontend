@@ -20,6 +20,7 @@ export function ProductDetail() {
   const [amount, setAmount] = useState(1)
   const { productId } = useParams()
   const user = useSelector((storeState) => storeState.userModule.loggedInUser)
+  const anonymousCart = useSelector((storeState) => storeState.userModule.anonymousCart)
   useEffect(() => {
     loadProduct()
   }, [])
@@ -39,16 +40,26 @@ export function ProductDetail() {
   async function onAddToCart(color) {
     const productToSave = { ...product, color: color, amount: +amount }
     if (user) {
-      try {
-        addToCart(productToSave)
-        toast.success(`product added to cart`)
-      } catch (error) {
-        toast.error(`sorry we can't handle your request right now`)
+      const isProductInCart = user.cart.some(product => product._id === productId)
+      if (isProductInCart) {
+        toast.error(`product is already in cart`)
+      } else {
+        try {
+          addToCart(productToSave)
+          toast.success(`product added to cart`)
+        } catch (error) {
+          toast.error(`sorry we can't handle your request right now`)
+        }
       }
     }
     else {
-      addToAnonymousCart(productToSave)
-      toast.success(`${productToSave.title} has been successfully added to cart`)
+      const isProductInCart = anonymousCart.some(product => product._id === productId)
+      if (isProductInCart) {
+        toast.error(`product is already in cart`)
+      } else {
+        addToAnonymousCart(productToSave)
+        toast.success(`product added to cart`)
+      }
     }
   }
   if (!product) return <div className='flex w-full justify-center'><RotatingTriangles

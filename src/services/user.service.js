@@ -48,7 +48,6 @@ function _setloggedInUser(user) {
 
 async function update(userToUpdate) {
     const { _id, cart, fullname } = userToUpdate
-    console.log('cart, fullname:', cart, fullname)
     const user = await httpService.put(`user/${_id}`, { _id, cart, fullname })
     if (getloggedInUser()._id === user._id) saveLocalUser(user)
     return user

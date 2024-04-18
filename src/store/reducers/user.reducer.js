@@ -45,6 +45,8 @@ export function userReducer(state = initialState, action = {}) {
                 title: action.product.title,
                 _id: action.product._id
             }
+            const isProductInCart = userCart.some(product => product._id === productToSave._id);
+
             userCart.push(productToSave)
             return {
                 ...state,
