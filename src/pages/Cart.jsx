@@ -55,7 +55,7 @@ export function Cart() {
         <div className='w-full h-1 bg-secondary mt-4'></div>
         <div className='sm:grid sm:grid-cols-4 sm:gap-5 flex flex-col'>
           <div className='sm:col-span-3'>
-            {!combinedCart.length ? null : combinedCart.map((product, index) => <article className=' flex flex-col items-start md:grid md:grid-cols-5 p-7 sm:shadow-2xl sm:rounded-lg border-b-4  text-center cursor-pointer mt-6' key={index}>
+            {!combinedCart.length ? null : combinedCart.map((product, index) => <article className=' flex flex-col items-start md:grid md:grid-cols-5 py-7 sm:shadow-2xl sm:rounded-lg border-b-4  text-center cursor-pointer mt-6' key={index}>
               <img className=' size-56 sm:size-32 object-cover rounded-lg  sm:m-0' src={product.image} alt={product.title} />
               <div className=' col-span-2 flex flex-col items-start '>
                 <h1 className='mt-4  capitalize text-2xl tracking-wider font-medium'>{product.title}</h1>
