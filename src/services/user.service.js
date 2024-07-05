@@ -31,6 +31,7 @@ async function login({ username, password }) {
 
 async function signup({ username, password, fullname }) {
     const user = { username, password, fullname, cart: [] }
+    console.log(user)
     const savedUser = httpService.post(BASE_URL + 'signup', user)
     if (savedUser) return _setloggedInUser(savedUser)
 }

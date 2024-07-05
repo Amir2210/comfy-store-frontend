@@ -20,7 +20,7 @@ export async function login(credentials) {
             await userService.update({ ...user, cart: anonymousCart })
             store.dispatch({ type: SET_ANONYMOUS_CART, anonymousProductsCart: [] })
         }
-
+        console.log(user)
         store.dispatch({ type: SET_USER, user })
         return user
     } catch (err) {

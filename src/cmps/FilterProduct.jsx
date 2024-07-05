@@ -9,6 +9,8 @@ export function FilterProduct({ filterBy, onSetFilter, sortBy, onSetSort }) {
   const [sortByToEdit, setSortByToEdit] = useState({ ...sortBy })
   const [isfilterModalOpen, setIsfilterModalOpen] = useState(false)
   const filterModalRef = useRef(null)
+
+
   function handleChange({ target }) {
     let { value, name: field, type } = target
     value = type === 'number' ? +value : value

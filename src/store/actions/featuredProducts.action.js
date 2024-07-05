@@ -9,6 +9,7 @@ export async function loadFeaturedProducts() {
       const featuredProducts = await featuredProductsService.query()
       store.dispatch({ type: SET_FEATURED_PRODUCTS, featuredProducts })
     } catch (err) {
+      console.log('error!!!!')
       console.log('item action -> Cannot load featuredProducts', err)
       throw err
     }
