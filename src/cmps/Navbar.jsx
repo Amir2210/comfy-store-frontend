@@ -49,7 +49,7 @@ export function Navbar() {
     }
   }
   return (
-    <nav className='bg-base-200 '>
+    <nav className='bg-base-200 sticky top-0  z-10'>
       <div className='navbar align-elemets '>
         <div className='navbar-start'>
           <NavLink to={'/'} className='hidden lg:flex text-4xl text-slate-900 font-mono font-bold w-14 h-14 btn btn-primary  justify-center items-center rounded-lg duration-300'>C</NavLink>
